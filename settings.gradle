@@ -1,0 +1,2 @@
+rootProject.name = "BreathingApps2"
+include ':app'

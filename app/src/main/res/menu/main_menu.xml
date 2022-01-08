@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Home"
+        app:cnb_iconColor="@color/light_blue"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_articles"
+        android:icon="@drawable/ic_baseline_article_24"
+        android:title="Articles"
+        app:cnb_iconColor="@color/light_blue"
+        app:showAsAction="ifRoom"/>
+
+
+    <item
+        android:id="@+id/action_quotes"
+        android:icon="@drawable/ic_baseline_tag_faces_24"
+        android:title="Quotes"
+        app:cnb_iconColor="@color/light_blue"
+        app:showAsAction="ifRoom"/>
+</menu>
