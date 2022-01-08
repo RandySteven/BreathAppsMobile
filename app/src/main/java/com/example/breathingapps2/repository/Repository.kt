@@ -2,6 +2,7 @@ package com.example.breathingapps2.repository
 
 import android.content.Context
 import android.util.Log
+import com.example.breathingapps2.models.Interval
 import com.example.breathingapps2.models.Song
 import com.example.breathingapps2.models.Video
 import com.google.firebase.database.DataSnapshot
@@ -138,7 +139,19 @@ object Repository {
             }
     }
 
-    fun addCustomRelaxation(){
+    fun addInterval(name : String, inhale : Int, hold : Int, exhale : Int, endHold : Int, cycles : Int){
+        val databaseInterval = FirebaseDatabase.getInstance().getReference("intervals")
 
+        val interval : Interval = Interval(
+            id = databaseInterval.push().key,
+            name = name,
+            inhale = inhale,
+            hold = hold,
+            exhale = exhale,
+            endHold = endHold,
+            cycles = cycles
+        )
+
+        databaseInterval.setValue(interval)
     }
 }

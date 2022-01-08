@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swpSettingInterval"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/soft_gray">
+    tools:context=".fragments.SettingIntervalFragment"
+    android:background="@color/light_blue">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <TextView
         android:id="@+id/customRelaxationtitle"
@@ -14,6 +26,7 @@
         android:layout_marginStart="25dp"
         android:textSize="28sp"
         android:textStyle="bold"
+        android:textColor="@color/white"
         android:layout_marginVertical="15dp"/>
 
     <RelativeLayout
@@ -26,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
+            android:textColor="@color/white"
             android:textSize="18dp"
             android:textStyle="bold"
             android:layout_centerVertical="true"
@@ -33,10 +47,12 @@
 
 
         <EditText
+            android:id="@+id/etNameInterval"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:text="Saved Interval 1"
             android:textSize="18dp"
+            android:textColor="@color/white"
             android:layout_centerVertical="true"
             android:layout_marginStart="70dp"
             android:layout_alignParentStart="true" />
@@ -56,16 +72,20 @@
             android:layout_height="wrap_content"
             android:text="Inhale"
             android:textSize="18dp"
+            android:textColor="@color/white"
             android:layout_alignParentStart="true" />
 
         <TextView
+            android:id="@+id/tvInhaleValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4 seconds"
+            android:text="--"
+            android:textColor="@color/white"
             android:textSize="18dp"
             android:layout_alignParentEnd="true" />
 
         <SeekBar
+            android:id="@+id/seekBarInhale"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -84,18 +104,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:text="Hold"
             android:textSize="18dp"
             android:layout_alignParentStart="true" />
 
         <TextView
+            android:id="@+id/tvHoldValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6 seconds"
+            android:text="--"
+            android:textColor="@color/white"
             android:textSize="18dp"
             android:layout_alignParentEnd="true" />
 
         <SeekBar
+            android:id="@+id/seekBarHold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -114,17 +138,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Exhale"
+            android:textColor="@color/white"
             android:textSize="18dp"
             android:layout_alignParentStart="true" />
 
         <TextView
+            android:id="@+id/tvExhaleValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4 seconds"
+            android:text="--"
+            android:textColor="@color/white"
             android:textSize="18dp"
             android:layout_alignParentEnd="true" />
 
         <SeekBar
+            android:id="@+id/seekBarExhale"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -143,17 +171,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="End Hold"
+            android:textColor="@color/white"
             android:textSize="18dp"
             android:layout_alignParentStart="true" />
 
         <TextView
+            android:id="@+id/tvEndHoldValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="8 seconds"
+            android:text="--"
             android:textSize="18dp"
+            android:textColor="@color/white"
             android:layout_alignParentEnd="true" />
 
         <SeekBar
+            android:id="@+id/seekBarEndHold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -172,17 +204,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cycles"
+            android:textColor="@color/white"
             android:textSize="18dp"
             android:layout_alignParentStart="true" />
 
         <TextView
+            android:id="@+id/tvCyclesValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="8 times"
+            android:text="--"
+            android:textColor="@color/white"
             android:textSize="18dp"
             android:layout_alignParentEnd="true" />
 
         <SeekBar
+            android:id="@+id/seekBarCycles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -205,4 +241,8 @@
         android:textAllCaps="false"
         android:text="Confirm" />
 
-</LinearLayout>
+    </LinearLayout>
+
+    </ScrollView>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

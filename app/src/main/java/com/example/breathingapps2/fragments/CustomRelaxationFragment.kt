@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.breathingapps2.R
 import com.example.breathingapps2.databinding.FragmentCustomRelaxationBinding
 
 class CustomRelaxationFragment : Fragment() {
@@ -22,12 +23,14 @@ class CustomRelaxationFragment : Fragment() {
     }
 
     private fun onClick(){
-        customRelaxationBinding?.btnAddInterval.setOnClickListener {
-
+        customRelaxationBinding?.btnAddInterval?.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.frame_main, SettingIntervalFragment(), "settingFragment")
+                ?.commit()
         }
     }
 
-    private fun loadCustom(){
+    private fun showIntervals(){
 
     }
 }
