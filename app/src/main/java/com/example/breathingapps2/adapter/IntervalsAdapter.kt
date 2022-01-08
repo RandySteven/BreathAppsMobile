@@ -8,16 +8,17 @@ import com.example.breathingapps2.models.Interval
 
 class IntervalsAdapter : RecyclerView.Adapter<IntervalsAdapter.ViewHolder>() {
 
-    private val intervals = mutableListOf<Interval>()
+    private var intervals = mutableListOf<Interval>()
     private var listener : ((MutableList<Interval>, Int) -> Unit) ?= null
+
     inner class ViewHolder(private val binding : ListCustomBinding)
         : RecyclerView.ViewHolder(binding.root){
         fun bindItem(interval: Interval, listener : ((MutableList<Interval>, Int) -> Unit)?){
-            binding?.tvSavedInterval.text = "Saved interval ${interval.id}"
+            binding?.tvSavedInterval.text = "Saved interval ${interval.name}"
 
             itemView.setOnClickListener {
                 if(listener != null){
-
+                    listener(intervals, adapterPosition)
                 }
             }
         }
@@ -34,4 +35,12 @@ class IntervalsAdapter : RecyclerView.Adapter<IntervalsAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = intervals.size
 
+    fun setData(intervals : MutableList<Interval>){
+        this.intervals = intervals
+        notifyDataSetChanged()
+    }
+
+    fun onClick(listener: ((MutableList<Interval>, Int) -> Unit)?){
+        this.listener = listener
+    }
 }

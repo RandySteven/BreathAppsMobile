@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.example.breathingapps2.databinding.VideoDetailBinding
 import com.example.breathingapps2.models.Video
+import org.jetbrains.anko.startActivity
 
 class VideoActivity : AppCompatActivity() {
 
@@ -34,6 +35,7 @@ class VideoActivity : AppCompatActivity() {
         setContentView(videoDetailBinding.root)
 
         getData()
+        onClick()
     }
 
     private fun getData(){
@@ -44,6 +46,13 @@ class VideoActivity : AppCompatActivity() {
                 val video = it[position]
                 initView(video)
             }
+        }
+    }
+
+    private fun onClick(){
+        videoDetailBinding?.backArrow?.setOnClickListener {
+            finish()
+            startActivity<MainActivity>()
         }
     }
 

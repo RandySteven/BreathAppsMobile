@@ -50,7 +50,6 @@
             android:id="@+id/etNameInterval"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:text="Saved Interval 1"
             android:textSize="18dp"
             android:textColor="@color/white"
             android:layout_centerVertical="true"

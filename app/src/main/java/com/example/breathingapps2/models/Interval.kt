@@ -40,5 +40,10 @@ data class Interval (
     @field:SerializedName("cycles")
     @get:PropertyName("cycles")
     @set:PropertyName("cycles")
-    var cycles : Int ?= null
+    var cycles : Int ?= null,
+
+    @field:SerializedName("keyInterval")
+    @get:PropertyName("keyInterval")
+    @set:PropertyName("keyInterval")
+    var keyInterval : String ?= null
         ) : Parcelable

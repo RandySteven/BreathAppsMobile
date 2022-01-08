@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.breathingapps2.R
 import com.example.breathingapps2.VideoActivity
 import com.example.breathingapps2.adapter.VideosAdapter
 import com.example.breathingapps2.databinding.FragmentVideoRelaxationBinding
@@ -97,5 +98,15 @@ class VideoFragment : Fragment(){
                 VideoActivity.KEY_POSITION to position
             )
         }
+
+        videoBinding?.backArrow?.setOnClickListener {
+            changeFragment(HomeFragment(), "home")
+        }
+    }
+
+    private fun changeFragment(fragment: Fragment, tag :String){
+        activity?.supportFragmentManager?.beginTransaction()
+            ?.replace(R.id.frame_main, fragment, tag)
+            ?.commit()
     }
 }

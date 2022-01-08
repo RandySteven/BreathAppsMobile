@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.example.breathingapps2.R
 import com.example.breathingapps2.databinding.CustomRelaxationSettingBinding
 import com.example.breathingapps2.repository.Repository
+import com.google.firebase.database.FirebaseDatabase
 
 class SettingIntervalFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
 
@@ -75,7 +76,7 @@ class SettingIntervalFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
             }
             R.id.seekBarCycles -> {
                 cyclesProgress = progress
-                customRelaxationSettingBinding?.tvCyclesValue?.text = "$cyclesProgress seconds"
+                customRelaxationSettingBinding?.tvCyclesValue?.text = "$cyclesProgress times"
             }
             R.id.seekBarHold -> {
                 holdProgress = progress
@@ -96,7 +97,7 @@ class SettingIntervalFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
                 customRelaxationSettingBinding?.tvEndHoldValue?.text = "0 seconds"
             }
             R.id.seekBarCycles -> {
-                customRelaxationSettingBinding?.tvCyclesValue?.text = "0 seconds"
+                customRelaxationSettingBinding?.tvCyclesValue?.text = "0 times"
             }
             R.id.seekBarHold -> {
                 customRelaxationSettingBinding?.tvHoldValue?.text = "0 seconds"
@@ -116,7 +117,7 @@ class SettingIntervalFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
                 customRelaxationSettingBinding?.tvEndHoldValue?.text = "$endHoldProgress seconds"
             }
             R.id.seekBarCycles -> {
-                customRelaxationSettingBinding?.tvCyclesValue?.text = "$cyclesProgress seconds"
+                customRelaxationSettingBinding?.tvCyclesValue?.text = "$cyclesProgress times"
             }
             R.id.seekBarHold -> {
                 customRelaxationSettingBinding?.tvHoldValue?.text = "$holdProgress seconds"
@@ -126,6 +127,8 @@ class SettingIntervalFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
 
 //    name : String, inhale : Int, hold : Int, exhale : Int, endHold : Int, cycles : Int
     private fun onClick(){
+
+        var intervalId = 0
         var name = customRelaxationSettingBinding?.etNameInterval?.text.toString()
 
         customRelaxationSettingBinding?.buttonConfirm?.setOnClickListener {

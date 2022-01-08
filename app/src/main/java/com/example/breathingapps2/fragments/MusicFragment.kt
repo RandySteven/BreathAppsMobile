@@ -7,13 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.breathingapps2.MusicActivity
 import com.example.breathingapps2.R
 import com.example.breathingapps2.adapter.MusicsAdapter
 import com.example.breathingapps2.databinding.FragmentMusicRelaxationBinding
 import com.example.breathingapps2.models.Song
-import com.example.musicapps.utils.gone
 import com.example.musicapps.utils.hide
 import com.example.musicapps.utils.visible
 import com.google.firebase.database.*
@@ -32,6 +30,7 @@ class MusicFragment : Fragment() {
         override fun onDataChange(snapshot: DataSnapshot) {
             hideLoading()
             val gson = Gson().toJson(snapshot.value)
+            println(gson)
             val type = object : TypeToken<MutableList<Song>>(){}.type
 
             val songs = Gson().fromJson<MutableList<Song>>(gson, type)
@@ -83,6 +82,16 @@ class MusicFragment : Fragment() {
                 MusicActivity.KEY_POSITION to position
             )
         }
+
+        musicRelaxationBinding?.backArrow?.setOnClickListener {
+            changeFragment(HomeFragment(), "home")
+        }
+    }
+
+    private fun changeFragment(fragment : Fragment, tag : String){
+        activity?.supportFragmentManager?.beginTransaction()
+            ?.replace(R.id.frame_main, fragment, tag)
+            ?.commit()
     }
 
     private fun swipeSongs(){

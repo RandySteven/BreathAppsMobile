@@ -2,6 +2,7 @@ package com.example.breathingapps2.repository
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import com.example.breathingapps2.models.Interval
 import com.example.breathingapps2.models.Song
 import com.example.breathingapps2.models.Video
@@ -142,16 +143,19 @@ object Repository {
     fun addInterval(name : String, inhale : Int, hold : Int, exhale : Int, endHold : Int, cycles : Int){
         val databaseInterval = FirebaseDatabase.getInstance().getReference("intervals")
 
+        var intervalId = databaseInterval.push().key
         val interval : Interval = Interval(
-            id = databaseInterval.push().key,
+            id = intervalId,
             name = name,
             inhale = inhale,
             hold = hold,
             exhale = exhale,
             endHold = endHold,
-            cycles = cycles
+            cycles = cycles,
+            keyInterval = databaseInterval.push().key
         )
-
-        databaseInterval.setValue(interval)
+        databaseInterval.child(intervalId.toString()).setValue(interval).addOnCompleteListener {
+            Log.d("Success", "addInterval: success")
+        }
     }
 }
