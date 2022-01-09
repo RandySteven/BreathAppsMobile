@@ -4,6 +4,7 @@ import android.os.Parcelable
 import com.google.firebase.database.PropertyName
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
 @Parcelize
 data class Interval (
@@ -46,4 +47,4 @@ data class Interval (
     @get:PropertyName("keyInterval")
     @set:PropertyName("keyInterval")
     var keyInterval : String ?= null
-        ) : Parcelable
+        ) : Parcelable, Serializable

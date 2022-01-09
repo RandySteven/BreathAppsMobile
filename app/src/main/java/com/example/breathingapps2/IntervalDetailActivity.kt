@@ -1,6 +1,7 @@
 package com.example.breathingapps2
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.breathingapps2.databinding.CustomRelaxationPage2Binding
 import com.example.breathingapps2.models.Interval
 import org.jetbrains.anko.startActivity
+import java.io.Serializable
 
 class IntervalDetailActivity : AppCompatActivity() {
 
@@ -26,7 +28,6 @@ class IntervalDetailActivity : AppCompatActivity() {
         setContentView(customRelaxationPage2Binding?.root)
 
         getData()
-        onClick()
     }
 
     private fun getData(){
@@ -47,12 +48,15 @@ class IntervalDetailActivity : AppCompatActivity() {
         customRelaxationPage2Binding?.tvExhale?.text = "${interval.exhale} seconds"
         customRelaxationPage2Binding?.tvEndHold?.text = "${interval.endHold} seconds"
         customRelaxationPage2Binding?.tvCycles?.text = "${interval.cycles} times"
-    }
-
-    private fun onClick(){
         customRelaxationPage2Binding?.backArrow?.setOnClickListener {
             finish()
             startActivity<MainActivity>()
+        }
+        customRelaxationPage2Binding?.buttonStart?.setOnClickListener {
+            intent = Intent(this, DailyExerciseActivity::class.java)
+            intent.putExtra("interval", interval as Serializable)
+            startActivity(intent)
+            finish()
         }
     }
 
