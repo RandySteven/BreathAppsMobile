@@ -24,9 +24,29 @@ class VideoActivity : AppCompatActivity() {
     private lateinit var videoDetailBinding: VideoDetailBinding
     private lateinit var handler : Handler
     private lateinit var mediaController : MediaController
+    private var video : Video ?= null
 
     private var videos : MutableList<Video> ?= null
     private var position = 0
+
+
+    override fun onResume() {
+        super.onResume()
+        if(video != null){
+            videoDetailBinding?.videoVideo?.start()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        videoDetailBinding?.videoVideo?.stopPlayback()
+        video = null
+    }
+
+    override fun onPause() {
+        super.onPause()
+        videoDetailBinding?.videoVideo?.pause()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +63,8 @@ class VideoActivity : AppCompatActivity() {
             videos = intent.getParcelableArrayListExtra(KEY_VIDEOS)
             position = intent.getIntExtra(KEY_POSITION, 0)
             videos?.let{
-                val video = it[position]
-                initView(video)
+                video = it[position]
+                initView(video!!)
             }
         }
     }

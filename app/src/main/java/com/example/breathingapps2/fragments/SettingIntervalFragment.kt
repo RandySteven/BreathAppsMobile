@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.breathingapps2.MainActivity
 import com.example.breathingapps2.R
 import com.example.breathingapps2.databinding.CustomRelaxationSettingBinding
 import com.example.breathingapps2.repository.Repository
@@ -128,12 +129,22 @@ class SettingIntervalFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
 //    name : String, inhale : Int, hold : Int, exhale : Int, endHold : Int, cycles : Int
     private fun onClick(){
 
-        var intervalId = 0
-        var name = customRelaxationSettingBinding?.etNameInterval?.text.toString()
+        var name = customRelaxationSettingBinding?.etNameInterval?.text
+        println(name.toString())
 
         customRelaxationSettingBinding?.buttonConfirm?.setOnClickListener {
-            Repository.addInterval(name, inhaleProgress, holdProgress, exhaleProgress, endHoldProgress, cyclesProgress)
+            customRelaxationSettingBinding?.etNameInterval?.text = null
+            customRelaxationSettingBinding?.seekBarInhale?.progress = 0
+            customRelaxationSettingBinding?.seekBarCycles?.progress = 0
+            customRelaxationSettingBinding?.seekBarEndHold?.progress = 0
+            customRelaxationSettingBinding?.seekBarHold?.progress = 0
+            customRelaxationSettingBinding?.seekBarExhale?.progress = 0
+            Repository.addInterval(name.toString(), inhaleProgress, holdProgress, exhaleProgress, endHoldProgress, cyclesProgress)
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.frame_main, HomeFragment())
+                ?.commit()
             Toast.makeText(context, "Success", Toast.LENGTH_LONG).show()
         }
+
     }
 }

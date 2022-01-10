@@ -1,5 +1,8 @@
 package com.example.breathingapps2.fragments
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -7,8 +10,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import com.example.breathingapps2.ArticleActivity
+import com.example.breathingapps2.R
 import com.example.breathingapps2.adapter.ArticlesAdapter
 import com.example.breathingapps2.api.ApiClient
 import com.example.breathingapps2.databinding.FragmentArticleBinding
@@ -26,6 +32,7 @@ class ArticleFragment : Fragment() {
     private var _binding : FragmentArticleBinding ?= null
     private val articleBinding get() = _binding
     private lateinit var articlesAdapter : ArticlesAdapter
+    private var articles : MutableList<Article> = mutableListOf<Article>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +41,16 @@ class ArticleFragment : Fragment() {
     ): View? {
         _binding = FragmentArticleBinding.inflate(inflater, container, false)
         return _binding?.root
+    }
+
+    override fun onPause() {
+        super.onPause()
+        notification(articles)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        notification(articles)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -79,6 +96,28 @@ class ArticleFragment : Fragment() {
         articleBinding?.swpArticle?.visible()
     }
 
+    private fun notification(articles : MutableList<Article>){
+        loadData()
+        var size : Int = (0 until articles?.size-1).random()
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            var channel : NotificationChannel = NotificationChannel("Add Data", "Add new intervals", NotificationManager.IMPORTANCE_DEFAULT)
+            var manager : NotificationManager? = context?.getSystemService(NotificationManager::class.java)
+
+            manager?.createNotificationChannel(channel)
+        }
+
+        var builder : NotificationCompat.Builder = NotificationCompat.Builder(context?.applicationContext!!, "n")
+            .setContentTitle(articles[size]?.title)
+            .setSmallIcon(R.drawable.ic_baseline_notifications_24)
+            .setAutoCancel(false)
+            .setContentText(articles[size]?.body)
+
+        var managerCompat : NotificationManagerCompat = NotificationManagerCompat.from(context?.applicationContext!!)
+        managerCompat.notify(999, builder.build())
+
+        size = 0
+    }
+
     private fun loadData(){
         ApiClient.apiService.getPostData().enqueue(object : Callback<GetArticleResponse>{
             override fun onResponse(
@@ -99,6 +138,7 @@ class ArticleFragment : Fragment() {
                             list.add(article)
                         }
                         articlesAdapter.setData(list)
+                        articles = list
                     }else{
                         println("No Data")
                     }
@@ -107,7 +147,7 @@ class ArticleFragment : Fragment() {
 
             override fun onFailure(call: Call<GetArticleResponse>, t: Throwable) {
                 t.printStackTrace()
-                println("Gagal panggi lapi")
+                println("Gagal panggi API")
             }
         })
     }

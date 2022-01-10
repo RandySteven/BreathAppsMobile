@@ -1,5 +1,10 @@
 package com.example.breathingapps2.fragments
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -7,6 +12,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import com.example.breathingapps2.IntervalDetailActivity
 import com.example.breathingapps2.R
@@ -65,6 +72,7 @@ class CustomRelaxationFragment : Fragment() {
     private fun onClick(){
         customRelaxationBinding?.btnAddInterval?.setOnClickListener {
             changeFragment(SettingIntervalFragment(), "settingInterval")
+            notification()
         }
 
         intervalsAdapter.onClick { intervals, postion ->
@@ -77,6 +85,24 @@ class CustomRelaxationFragment : Fragment() {
         customRelaxationBinding?.backArrow?.setOnClickListener {
             changeFragment(HomeFragment(), "home")
         }
+    }
+
+    private fun notification(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            var channel : NotificationChannel = NotificationChannel("Add Data", "Add new intervals", NotificationManager.IMPORTANCE_DEFAULT)
+            var manager : NotificationManager? = context?.getSystemService(NotificationManager::class.java)
+
+            manager?.createNotificationChannel(channel)
+        }
+
+        var builder : NotificationCompat.Builder = NotificationCompat.Builder(context?.applicationContext!!, "n")
+            .setContentText("Add New Data")
+            .setSmallIcon(R.drawable.ic_baseline_notifications_24)
+            .setAutoCancel(false)
+            .setContentText("New data added")
+
+        var managerCompat : NotificationManagerCompat = NotificationManagerCompat.from(context?.applicationContext!!)
+        managerCompat.notify(999, builder.build())
     }
 
     private fun changeFragment(fragment : Fragment, tag : String){

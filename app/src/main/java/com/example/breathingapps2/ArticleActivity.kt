@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.breathingapps2.databinding.ActivityDetailArticleBinding
 import com.example.breathingapps2.models.Article
+import org.jetbrains.anko.startActivity
 
 class ArticleActivity : AppCompatActivity() {
 
@@ -23,10 +24,14 @@ class ArticleActivity : AppCompatActivity() {
         setContentView(articleBinding?.root)
 
         getData()
+        onClick()
     }
 
-    private fun init(){
-
+    private fun onClick(){
+        articleBinding?.backArrow?.setOnClickListener {
+            startActivity<MainActivity>()
+            finish()
+        }
     }
 
     private fun getData(){
