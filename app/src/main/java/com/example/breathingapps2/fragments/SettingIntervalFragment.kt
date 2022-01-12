@@ -131,19 +131,18 @@ class SettingIntervalFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
 
         var name = customRelaxationSettingBinding?.etNameInterval?.text
         println(name.toString())
-
         customRelaxationSettingBinding?.buttonConfirm?.setOnClickListener {
-            customRelaxationSettingBinding?.etNameInterval?.text = null
-            customRelaxationSettingBinding?.seekBarInhale?.progress = 0
-            customRelaxationSettingBinding?.seekBarCycles?.progress = 0
-            customRelaxationSettingBinding?.seekBarEndHold?.progress = 0
-            customRelaxationSettingBinding?.seekBarHold?.progress = 0
-            customRelaxationSettingBinding?.seekBarExhale?.progress = 0
-            Repository.addInterval(name.toString(), inhaleProgress, holdProgress, exhaleProgress, endHoldProgress, cyclesProgress)
+            Repository.addInterval(name.toString(),
+                customRelaxationSettingBinding?.seekBarInhale?.progress?.toInt()!!,
+                customRelaxationSettingBinding?.seekBarHold?.progress?.toInt()!!,
+                customRelaxationSettingBinding?.seekBarExhale?.progress?.toInt()!!,
+                customRelaxationSettingBinding?.seekBarEndHold?.progress?.toInt()!!,
+                customRelaxationSettingBinding?.seekBarCycles?.progress?.toInt()!!)
+            Toast.makeText(context, "Success", Toast.LENGTH_LONG).show()
+
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.frame_main, HomeFragment())
                 ?.commit()
-            Toast.makeText(context, "Success", Toast.LENGTH_LONG).show()
         }
 
     }
